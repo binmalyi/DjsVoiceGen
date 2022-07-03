@@ -6,7 +6,7 @@ const voiceCollection = new Collection();
 client.on('voiceStateUpdate', async (oldState, newState) => {
 
     if(!oldState.channel && newState.channel.id === `CHANNEL_ID`){
-        let user = await this.client.users.fetch(newState.id);
+        let user = await client.users.fetch(newState.id);
         let option = {
             type: 'GUILD_VOICE',
             parent: newState.channel.parent,
@@ -17,10 +17,10 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                 }
             ]
         }
-        let channel = await newState.guild.channels.create(user.tag,option).catch(error => console.error(error));
+        let channel = await newState.guild.channels.create(user.tag, option).catch(error => console.error(error));
 
         newState.member.voice.setChannel(channel);
-        voiceCollection.set(user.id,channel.id);
+        voiceCollection.set(user.id, channel.id);
 
     } else if(!newState.channel){
         if(oldState.channelId === voiceCollection.get(newState.id)){
