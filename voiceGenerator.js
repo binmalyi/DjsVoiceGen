@@ -3,7 +3,7 @@ import { Collection } from 'discordjs';
 const voiceCollection = new Collection();
 
 // Pass the instance of Client as you defined it in your code
-client.on('voiceStateUpdate', async (oldState, newState) => {
+client.on('voiceStateUpdate', async (client, oldState, newState) => {
 
     if(!oldState.channel && newState.channel.id === `CHANNEL_ID`){
         let user = await client.users.fetch(newState.id);
